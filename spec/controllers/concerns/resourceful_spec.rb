@@ -217,7 +217,7 @@ describe Resourceful do
           .with(attributes)
           .and_return true
 
-        put :update, id: 1, example: attributes
+        put :update, id: 1, **attributes
       end
 
       let(:attributes) { { test: "value" } }
@@ -255,7 +255,7 @@ describe Resourceful do
         allow(factory).to receive(:errors)
           .and_return(field: ["is invalid"])
 
-        put :update, id: 1, example: attributes
+        put :update, id: 1, **attributes
       end
 
       let(:attributes) { { test: "value" } }

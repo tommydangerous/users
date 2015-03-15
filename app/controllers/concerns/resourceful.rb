@@ -8,24 +8,15 @@ module Resourceful
 
   private
 
-  def sanitize_params
-  end
-
-  def search_params
-    rescue_missing_params do
-      hash = params.require :q
-
-      if self.class.search_params
-        hash.permit self.class.search_params
-      else
-        hash.permit!
-      end
-    end
+  def require_params
+    copy = params.dup
+    copy[resource.name] = params.to_hash.except *%w(action controller format id)
+    copy.require resource.name
   end
 
   def resource_params
     rescue_missing_params do
-      hash = params.require resource.name
+      hash = require_params
       if self.class.resource_params
         hash.permit self.class.resource_params
       else
@@ -47,6 +38,21 @@ module Resourceful
     yield
   rescue ActionController::ParameterMissing
     ActionController::Parameters.new
+  end
+
+  def sanitize_params
+  end
+
+  def search_params
+    rescue_missing_params do
+      hash = params.require :q
+
+      if self.class.search_params
+        hash.permit self.class.search_params
+      else
+        hash.permit!
+      end
+    end
   end
 
   module Actions
