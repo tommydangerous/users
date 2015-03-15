@@ -27,6 +27,7 @@ group :development do
   gem "bundler-audit", require: false
   gem "guard-livereload", require: false
   gem "license_finder", require: false
+  gem "mina"
   gem "quiet_assets"
   gem "pry-rails"
   gem "railroady"
