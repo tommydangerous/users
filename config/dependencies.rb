@@ -2,7 +2,7 @@ factory :resource do |_container, controller|
   Resource.new ResourceResolver.new(controller)
 end
 
-names = %w()
+names = %w(user)
 
 names.each do |name|
   symbol = name.pluralize.to_sym
