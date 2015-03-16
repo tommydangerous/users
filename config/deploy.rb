@@ -70,7 +70,7 @@ task :provision do
   queue %{
     echo "-----> Configuring nginx"
     #{echo_cmd %[sudo rm -f /etc/nginx/sites-enabled/default]}
-    #{echo_cmd %[sudo ln -sf #{app_path}/config/nginx.conf /etc/nginx/sites-enabled/]}
+    #{echo_cmd %[sudo ln -sf #{app_dir}/config/nginx.conf /etc/nginx/sites-enabled/]}
     #{echo_cmd %[sudo /etc/init.d/nginx restart]}
   }
 end
