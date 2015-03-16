@@ -10,7 +10,11 @@ module Resourceful
 
   def require_params
     copy = params.dup
-    copy[resource.name] = params.to_hash.except *%w(action controller format id)
+    unless request.headers["CONTENT_TYPE"] == "application/json"
+      copy[resource.name] = params.to_hash.except(
+        *%w(action controller format id)
+      )
+    end
     copy.require resource.name
   end
 
