@@ -4,6 +4,7 @@ require "mina/git"
 require "mina/rvm"
 
 set :app_name, ""
+set :domain,   ""
 
 #                                                                         Config
 # ==============================================================================
@@ -12,7 +13,6 @@ set :rails_env, "production"
 
 set :identity_file, "/Users/tommydangerous/.ssh/aws_west_1.pem"
 set :user,          "ubuntu"
-set :domain,        "54.153.105.214"
 
 set :deploy_to,  "/var/www/#{app_name}"
 set :app_dir,    "#{deploy_to}/current"
