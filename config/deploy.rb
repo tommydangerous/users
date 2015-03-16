@@ -3,9 +3,10 @@ require "mina/rails"
 require "mina/git"
 require "mina/rvm"
 
+set :app_name, ""
+
 #                                                                         Config
 # ==============================================================================
-set :app_name, "users"
 
 set :rails_env, "production"
 
@@ -37,34 +38,34 @@ end
 #                                                                      Provision
 # ==============================================================================
 task :provision do
-  queue %{
-    echo "-----> Installing packages"
-    #{echo_cmd %[sudo apt-get -y update]}
-    #{echo_cmd %[sudo apt-get -y install build-essential git-core imagemagick libpq-dev libreadline-dev libssl-dev nginx nodejs postgresql-client]}
-  }
+  # queue %{
+  #   echo "-----> Installing packages"
+  #   #{echo_cmd %[sudo apt-get -y update]}
+  #   #{echo_cmd %[sudo apt-get -y install build-essential git-core imagemagick libpq-dev libreadline-dev libssl-dev nginx nodejs postgresql-client]}
+  # }
 
-  queue %{
-    echo "-----> Installing rbenv"
-    #{echo_cmd %[#{cmd_exists("rbenv")} || git clone git://github.com/sstephenson/rbenv.git ~/.rbenv]}
-    #{echo_cmd %[#{cmd_exists("rbenv")} || git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build]}
-    #{echo_cmd %[#{cmd_exists("rbenv")} || git clone git://github.com/dcarley/rbenv-sudo.git ~/.rbenv/plugins/rbenv-sudo]}
-    #{echo_cmd %[#{cmd_exists("rbenv")} || echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc]}
-    #{echo_cmd %[#{cmd_exists("rbenv")} || echo 'eval "$(rbenv init -)"' >> ~/.bashrc]}
-    #{echo_cmd %[#{cmd_exists("rbenv")} || source ~/.bashrc]}
-  }
+  # queue %{
+  #   echo "-----> Installing rbenv"
+  #   #{echo_cmd %[#{cmd_exists("rbenv")} || git clone git://github.com/sstephenson/rbenv.git ~/.rbenv]}
+  #   #{echo_cmd %[#{cmd_exists("rbenv")} || git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build]}
+  #   #{echo_cmd %[#{cmd_exists("rbenv")} || git clone git://github.com/dcarley/rbenv-sudo.git ~/.rbenv/plugins/rbenv-sudo]}
+  #   #{echo_cmd %[#{cmd_exists("rbenv")} || echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc]}
+  #   #{echo_cmd %[#{cmd_exists("rbenv")} || echo 'eval "$(rbenv init -)"' >> ~/.bashrc]}
+  #   #{echo_cmd %[#{cmd_exists("rbenv")} || source ~/.bashrc]}
+  # }
 
-  invoke "rbenv:load"
+  # invoke "rbenv:load"
 
-  queue %{
-    echo "-----> Installing ruby"
-    #{echo_cmd %[rbenv install #{ruby_version}]}
-    #{echo_cmd %[rbenv global #{ruby_version}]}
-  }
+  # queue %{
+  #   echo "-----> Installing ruby"
+  #   #{echo_cmd %[rbenv install #{ruby_version}]}
+  #   #{echo_cmd %[rbenv global #{ruby_version}]}
+  # }
 
-  queue %{
-    echo "-----> Installing gems"
-    #{echo_cmd %[gem install bundle eye --no-ri --no-rdoc]}
-  }
+  # queue %{
+  #   echo "-----> Installing gems"
+  #   #{echo_cmd %[gem install bundle eye --no-ri --no-rdoc]}
+  # }
 
   queue %{
     echo "-----> Configuring nginx"
