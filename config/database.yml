@@ -14,12 +14,20 @@ test:
 development_database_name: &development_database_name
   database: <%= ENV.fetch "DB_NAME" %>_development
 
+schema_search_path: &schema_search_path
+  schema_search_path: "public,users"
+
 development:
   <<: *default
   <<: *development_database_name
-  schema_search_path: "public,users"
+  <<: *schema_search_path
 
 users_schema:
   <<: *default
   <<: *development_database_name
   schema_search_path: "users"
+
+production:
+  <<: *default
+  <<: *schema_search_path
+  database: <%= ENV.fetch "DB_NAME" %>
