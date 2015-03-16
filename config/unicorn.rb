@@ -13,12 +13,10 @@ timeout 30 # Restart any workers that haven't responded in 30 seconds
 # listen "#{shared_dir}/sockets/unicorn.sock", backlog: 64
 listen "127.0.0.1:8080"
 
-unless Rails.env.development?
-  stderr_path "#{shared_dir}/log/unicorn.log"
-  stdout_path "#{shared_dir}/log/unicorn.log"
+stderr_path "#{shared_dir}/log/unicorn.log"
+stdout_path "#{shared_dir}/log/unicorn.log"
 
-  pid "#{shared_dir}/pids/unicorn.pid"
-end
+pid "#{shared_dir}/pids/unicorn.pid"
 
 before_exec do |server|
   # ENV["BUNDLE_GEMFILE"] = "#{app_dir}/Gemfile"
