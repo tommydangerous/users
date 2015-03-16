@@ -4,6 +4,7 @@ require "mina/git"
 require "mina/rvm"
 
 set :app_name, "users"
+set :domain,   "54.153.105.214"
 
 #                                                                         Config
 # ==============================================================================
@@ -12,7 +13,6 @@ set :rails_env, "production"
 
 set :identity_file, "/Users/tommydangerous/.ssh/aws_west_1.pem"
 set :user,          "ubuntu"
-set :domain,        "54.153.105.214"
 
 set :deploy_to,  "/var/www/#{app_name}"
 set :app_dir,    "#{deploy_to}/current"
@@ -81,6 +81,11 @@ end
 # For Rails apps, we'll make some of the shared paths that are shared between
 # all releases.
 task :setup => :environment do
+  queue %{
+    sudo mkdir #{deploy_to}
+    sudo chown -R #{user} #{deploy_to}
+  }
+
   %w{config log pids sockets}.each do |folder|
     queue! %[mkdir -p "#{shared_dir}/#{folder}"]
     queue! %[chmod g+rx,u+rwx "#{shared_dir}/#{folder}"]

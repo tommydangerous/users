@@ -7,27 +7,27 @@ default: &default
   username: <%= ENV.fetch "DB_USERNAME" %>
   pool:     <%= ENV.fetch "DB_POOL", 5 %>
 
-test:
-  <<: *default
-  database: <%= ENV.fetch "DB_NAME" %>_test
-
-development_database_name: &development_database_name
-  database: <%= ENV.fetch "DB_NAME" %>_development
+database_name: &database_name
+  database: <%= ENV.fetch "DB_NAME" %>_<%= ENV.fetch "RAILS_ENV" %>
 
 schema_search_path: &schema_search_path
   schema_search_path: "public,users"
 
+test:
+  <<: *default
+  <<: *database_name
+
 development:
   <<: *default
-  <<: *development_database_name
+  <<: *database_name
+  <<: *schema_search_path
+
+production:
+  <<: *default
+  <<: *database_name
   <<: *schema_search_path
 
 users_schema:
   <<: *default
-  <<: *development_database_name
+  <<: *database_name
   schema_search_path: "users"
-
-production:
-  <<: *default
-  <<: *schema_search_path
-  database: <%= ENV.fetch "DB_NAME" %>
