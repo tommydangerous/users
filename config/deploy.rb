@@ -81,6 +81,11 @@ end
 # For Rails apps, we'll make some of the shared paths that are shared between
 # all releases.
 task :setup => :environment do
+  queue %{
+    sudo mkdir #{deploy_to}
+    sudo chown -R #{user} #{deploy_to}
+  }
+
   %w{config log pids sockets}.each do |folder|
     queue! %[mkdir -p "#{shared_dir}/#{folder}"]
     queue! %[chmod g+rx,u+rwx "#{shared_dir}/#{folder}"]
