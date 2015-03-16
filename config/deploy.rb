@@ -3,7 +3,7 @@ require "mina/rails"
 require "mina/git"
 require "mina/rvm"
 
-set :app_name, ""
+set :app_name, "users"
 
 #                                                                         Config
 # ==============================================================================
