@@ -8,6 +8,7 @@ gem "attr_extras"
 gem "dotenv-rails"
 gem "payload", require: "payload/railtie"
 gem "pg"
+gem "unicorn"
 # gem "unicorn-rails"
 
 group :production do
