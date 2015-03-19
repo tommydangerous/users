@@ -5,7 +5,6 @@ gem "rails", "4.2.0"
 gem "active_model_serializers"
 gem "activeadmin", git: "https://github.com/activeadmin/activeadmin"
 gem "attr_extras"
-gem "dotenv-rails"
 gem "payload", require: "payload/railtie"
 gem "pg"
 gem "unicorn"
@@ -26,6 +25,7 @@ group :development do
   gem "better_errors"
   gem "binding_of_caller"
   gem "bundler-audit", require: false
+  gem "dotenv-rails"
   gem "guard-livereload", require: false
   gem "license_finder", require: false
   gem "mina"
